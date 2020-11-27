@@ -6,18 +6,18 @@
 #include <cod/skills/core/consts>
 
 //Selecting skills by best value
-stock FindBestChanceIfExist(chances[], chancesNum) {
-    new bestChance;
-    new bestChanceIndex = -1;
-    for(new i = 0; i < chancesNum; i++) {
-        if(chances[i] && (!bestChance || chances[i] < bestChance)) {
-            bestChance = chances[i];
-            bestChanceIndex = i;
-        }
-    }
+// stock FindBestChanceIfExist(chances[], chancesNum) {
+//     new bestChance;
+//     new bestChanceIndex = -1;
+//     for(new i = 0; i < chancesNum; i++) {
+//         if(chances[i] && (!bestChance || chances[i] < bestChance)) {
+//             bestChance = chances[i];
+//             bestChanceIndex = i;
+//         }
+//     }
 
-    return bestChanceIndex;
-}
+//     return bestChanceIndex;
+// }
 
 stock FindHighestValueIfExist(values[], valuesNum) {
     new bestValue;
@@ -49,7 +49,7 @@ stock FindLowestValueIfExist(values[], valuesNum) {
     new bestValue;
     new bestValueIndex = -1;
     for(new i = 0; i < valuesNum; i++) {
-        if(values[i] && values[i] > bestValue) {
+        if(values[i] && (!bestValue || values[i] < bestValue)) {
             bestValue = values[i];
             bestValueIndex = i;
         }
@@ -62,7 +62,7 @@ stock FindLowestFloatValueIfExist(Float:values[], valuesNum) {
     new Float:bestValue;
     new bestValueIndex = -1;
     for(new i = 0; i < valuesNum; i++) {
-        if(values[i] && values[i] > bestValue) {
+        if(values[i] && (!bestValue || values[i] < bestValue)) {
             bestValue = values[i];
             bestValueIndex = i;
         }
@@ -129,4 +129,21 @@ stock ConvertValuesToBooleans(values[COD_SKILLS], bool:booleans[COD_SKILLS]) {
     for (new i = 0; i < COD_SKILLS; i++) {
         booleans[i] = values[i] > 0 ? true : false;
     }
+}
+
+//Math operations on arrays
+stock SumValues(values[], valuesNum) {
+    new sum;
+    for (new i = 0; i < valuesNum; i++) {
+        sum += values[i];
+    }
+    return sum;
+}
+
+stock Float:SumFloatValues(Float:values[], valuesNum) {
+    new Float:sum;
+    for (new i = 0; i < valuesNum; i++) {
+        sum += values[i];
+    }
+    return sum;
 }

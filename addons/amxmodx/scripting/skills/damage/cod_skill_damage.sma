@@ -2,7 +2,7 @@
 #include <cstrike>
 #include <fakemeta>
 #include <codmod_1s2k_401>
-#include <cod/skills/core/core>
+#include <cod/skills/core/utils>
 #include <cod/skills/basics/damage>
 
 //Damage bonus
