@@ -58,8 +58,11 @@ public fw_Spawn_Post(id) {
         return HAM_IGNORED;
     }
 
-    remove_task(id);
-    HideFireIcon(id);
+    if (task_exists(id)) {
+        remove_task(id);
+        HideFireIcon(id);
+    }
+    
     return HAM_IGNORED;
 }
 
@@ -68,8 +71,11 @@ public fw_Killed_post(id) {
         return HAM_IGNORED;
     }
 
-    remove_task(id);
-    HideFireIcon(id);
+    if (task_exists(id)) {
+        remove_task(id);
+        HideFireIcon(id);
+    }
+
     return HAM_IGNORED;
 }
 
@@ -79,9 +85,8 @@ public Task_Burn(data[4], id) {
         return PLUGIN_CONTINUE;
     }
 
-    //TODO if player will disconnect the server and quickly after this new player will connect "att" can indicate to wrong player
-    new att = data[0];
-    if (!is_user_connected(att)) {
+    new att = find_player("k", data[0]);
+    if (!att) {
         HideFireIcon(id);
         return PLUGIN_CONTINUE;
     }
@@ -152,7 +157,7 @@ public Native_BurnPlayer(plugin, params) {
 
     ShowFireIcon(target);
     new data[4];
-    data[0] = id;
+    data[0] = get_user_userid(id);
     data[1] = _:periodTime;
     data[2] = num;
     data[3] = _:damage;

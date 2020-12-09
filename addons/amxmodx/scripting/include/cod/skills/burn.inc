@@ -9,10 +9,6 @@
 native Cod_SetPlayerChanceToBurn(id, skill, chance);
 native Cod_GetPlayerChanceToBurn(id, skill);
 
-//Molotov grenades
-native Cod_SetPlayerMolotovGrenades(id, skill, chance);
-native Cod_GetPlayerMolotovGrenades(id, skill);
-
 //Invulnerability to Burn
 native Cod_SetPlayerInvulnerabilityToBurn(id, skill, bool:value);
 native bool:Cod_GetPlayerInvulnerabilityToBurn(id, skill);

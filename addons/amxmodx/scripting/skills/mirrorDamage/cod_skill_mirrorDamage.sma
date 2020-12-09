@@ -15,9 +15,8 @@ new g_curDamageMirrorsNum[MAX_PLAYERS + 1];
 public plugin_init() {
     register_plugin("Cod Skill - Mirror damage", "1.0", "d0naciak.pl");
 
-    register_event("HLTV", "ev_NewRound", "a", "1=0", "2=0");
+    register_logevent("ev_RoundStart", 2, "1=Round_Start");
 }
-
 
 public plugin_natives() {
     register_library("cod_skill_mirrorDamage");
@@ -29,7 +28,7 @@ public plugin_natives() {
     register_native("Cod_GetPlayerDamageMirrors", "Native_GetPlayerDamageMirrors");
 }
 
-public ev_NewRound() {
+public ev_RoundStart() {
     for (new i = 1; i <= MaxClients; i++) {
         new curSkill = g_curDamageMirrorsSkill[i];
         if (curSkill != -1) {
