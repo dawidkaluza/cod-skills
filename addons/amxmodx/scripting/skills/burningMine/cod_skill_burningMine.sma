@@ -92,20 +92,14 @@ public fw_MineTouch(ent, id) {
     return PLUGIN_CONTINUE;
 }
 
-RemovePlayerMines(id) {
-    new ent;
-    while ((ent = find_ent_by_owner(ent, "cod_burningMine", id)) > 0) {
-        remove_entity(ent);
-    }
-}
-
 //Natives
 public Native_SetPlayerBurningMines(plugin, params) {
     new id = get_param(1);
     new skill = get_param(2);
     g_minesNum[id][skill] = get_param(3);
-    new bestId = FindHighestValueIfExist(g_minesNum[id], skill);
+    new bestId = FindHighestValueIfExist(g_minesNum[id], COD_SKILLS);
     if (bestId == -1) {
+        RemovePlayerMines(id);
         g_curMinesSkill[id] = -1;
         g_curMinesNum[id] = 0;
     } else {
@@ -176,7 +170,6 @@ public Native_PlantBurningMine(plugin, params) {
     new ent = create_entity("info_target");
     entity_set_string(ent, EV_SZ_classname, MINE_CLASSNAME);
     entity_set_edict(ent, EV_ENT_owner, id);
-    entity_set_int(ent, EV_INT_iuser2, skill);
     entity_set_int(ent, EV_INT_movetype, MOVETYPE_TOSS);
     entity_set_int(ent, EV_INT_solid, SOLID_BBOX);
     entity_set_origin(ent, position);
@@ -191,4 +184,11 @@ public Native_PlantBurningMine(plugin, params) {
     }
 
     return COD_SKILL_USE_AVAILABLE;
+}
+
+RemovePlayerMines(id) {
+    new ent;
+    while ((ent = find_ent_by_owner(ent, MINE_CLASSNAME, id)) > 0) {
+        remove_entity(ent);
+    }
 }
